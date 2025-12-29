@@ -25,6 +25,9 @@ namespace pract6
 
             cmbBank.SelectedIndex = 0;
         }
+        /// <summary>
+        /// Обновляет отображение загружая список сотрудников.
+        /// </summary>
         private void LoadEmployeesToGrid()
         {
             dgvEmployees.Rows.Clear();
@@ -42,6 +45,11 @@ namespace pract6
 
             dgvEmployees.AutoResizeColumns();
         }
+        /// <summary>
+        /// Обрабатывает событие нажатия кнопки. Изменяет доступность панели с функционалом создания.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BtnOpenCreate_Click(object sender, EventArgs e)
         {
             pnlVisibleDgv.Visible = false;
@@ -50,6 +58,12 @@ namespace pract6
             pnlVisibleAddEmployee.Visible = true;
             pnlVisibleAddEmployee.Enabled = true;
         }
+        /// <summary>
+        /// Обрабатывает событие нажатия кнопки на панели добавления. Проверяет совпадение значений после создает нового сотрудника.
+        /// Вызывает обновление отображения после успешного создания.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BtnCreateEmployee_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
@@ -115,6 +129,12 @@ namespace pract6
                 MessageBox.Show("Не удалось создать сотрудника. Проверьте введенные данные.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// Обрабатывает событие нажатия кнопки на панели создания.
+        /// Скрывает панель и очищает поля ввода.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BtnCancelCreate_Click(object sender, EventArgs e)
         {
             pnlVisibleAddEmployee.Visible = false;
@@ -128,6 +148,9 @@ namespace pract6
 
             ClearFields();
         }
+        /// <summary>
+        /// Очищает все поля ввода и сбрасывает состояние чекбоксов на форме.
+        /// </summary>
         private void ClearFields()
         {
             txtName.Clear();
@@ -155,6 +178,13 @@ namespace pract6
             cmbUpdBank.SelectedIndex = 0;
 
         }
+        /// <summary>
+        /// Обрабатывает событие нажатия кнопки.
+        /// Проверяет, выбран ли один сотрудник в отображении, и открывает модальную форму 
+        /// для отображения подробной информации о выбранном сотруднике.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BtnGetInfo_Click(object sender, EventArgs e)
         {
             int selectedRowCount = dgvEmployees.SelectedRows.Count;
@@ -184,7 +214,12 @@ namespace pract6
             infoForm.ShowDialog();
             LoadEmployeesToGrid();
         }
-
+        /// <summary>
+        /// Обрабатывает событие изменения состояния чекбокса на панели создания.
+        /// Включает или отключает связанные с ней элементы ввода.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ChkAcademicDegree_CheckedChanged(object sender, EventArgs e)
         {
             bool enabled = chkAcademicDegree.Checked;
@@ -195,7 +230,12 @@ namespace pract6
             lblYear.Enabled = enabled;
             lblScienceArea.Enabled = enabled;
         }
-
+        /// <summary>
+        /// Обрабатывает событие изменения состояния чекбокса на панели создания.
+        /// Включает или отключает связанные с ним элементы ввода.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ChkEnglishCertificate_CheckedChanged(object sender, EventArgs e)
         {
             bool enabled = chkEnglishCertificate.Checked;
@@ -204,6 +244,13 @@ namespace pract6
             lblExamTitle.Enabled = enabled;
             lblExamYear.Enabled = enabled;
         }
+        /// <summary>
+        /// Обрабатывает событие нажатия кнопки.
+        /// Проверяет, выбран ли один сотрудник в отображении, и загружает его данные
+        /// в панель редактирования.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BtnUpd_Click(object sender, EventArgs e)
         {
             int selectedRowCount = dgvEmployees.SelectedRows.Count;
@@ -236,6 +283,12 @@ namespace pract6
 
             LoadEmployeeUpdate(selectedEmployee);
         }
+        /// <summary>
+        /// Загружает данные выбранного сотрудника в элементы управления.
+        /// Определяет наличие декораторов (AcademicDegree, IntermediateEnglishCertificate),
+        /// блокируя чекбоксы, если у сотрудника уже имеется запись.
+        /// </summary>
+        /// <param name="employee">Объект сотрудника для загрузки данных.</param>
         private void LoadEmployeeUpdate(Employee employee)
         {
             currentEditingEmployee = employee;
@@ -263,7 +316,12 @@ namespace pract6
             }
 
         }
-
+        /// <summary>
+        /// Обрабатывает событие нажатия кнопки на панели редактирования.
+        /// Собирает данные о ученой степени и наличии сертификата по англ.яз. и обновляет отображении.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
             bool hasAcademicDegree = chkUpdAcademicDegree.Checked;
@@ -302,7 +360,7 @@ namespace pract6
                 }
                 else
                 {
-                    MessageBox.Show("Ошибка: Сотрудник не найден в списке для обновления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка: Сотрудник не найден в списке для обновления информации.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -322,7 +380,12 @@ namespace pract6
                 MessageBox.Show("Не удалось обновить информацию о сотруднике. Проверьте введенные данные.");
             }
         }
-
+        /// <summary>
+        /// Обрабатывает событие изменения состояния чекбокса на панели обновления.
+        /// Включает или отключает связанные с ним элементы ввода.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ChkUpdAcademicDegree_CheckedChanged(object sender, EventArgs e)
         {
             bool enabled = chkUpdAcademicDegree.Checked;
@@ -333,7 +396,12 @@ namespace pract6
             lblUpdYear.Enabled = enabled;
             lblUpdScienceArea.Enabled = enabled;
         }
-
+        /// <summary>
+        /// Обрабатывает событие изменения состояния чекбокса на панели обновления.
+        /// Включает или отключает связанные с ним элементы ввода.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ChkUpdEnglishCertificate_CheckedChanged(object sender, EventArgs e)
         {
             bool enabled = chkUpdEnglishCertificate.Checked;

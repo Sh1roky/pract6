@@ -33,7 +33,9 @@ namespace View
                 lblBankInfo.Text = "Информация о банке: Н/Д";
             }
         }
-
+        /// <summary>
+        /// Загружает информацию о сотруднике и отображает её в элементах управления формы.
+        /// </summary>
         private void LoadInfo()
         {
             string info = employeeLogic.GetEmployeeInfo(employee);
@@ -42,7 +44,11 @@ namespace View
             rtxtGetInfo.Text = info;
             lblBankInfo.Text = $"Банк: {bankName}\nЗарплата с комиссией от банка: {calculatedSalary:C}";
         }
-
+        /// <summary>
+        /// Обрабатывает событие нажатия кнопки "Сменить банк". обновляет информацию о используемом банке сотрудника.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BtnChangeBankCalculate_Click(object sender, EventArgs e)
         {
             if (employee == null)
