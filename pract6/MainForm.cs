@@ -3,6 +3,7 @@ using Entities;
 using Entities.Bank;
 using Entities.Decorator;
 using Entities.Employees;
+using System.Reflection;
 using View;
 
 namespace pract6
@@ -248,6 +249,19 @@ namespace pract6
             txtUpdSalary.Text = employee.BaseSalary.ToString("C");
             cmbUpdBank.SelectedItem = employee.BankService.Name;
             cmbUpdPosition.SelectedItem = employee.GetType().Name;
+
+            string employeeInfo = employee.GetInfo();
+
+            if (employeeInfo.Contains("Ученая степень:"))
+            {
+                chkUpdAcademicDegree.Enabled = false;
+            }
+
+            if (employeeInfo.Contains("Сертификат английского:"))
+            {
+                chkUpdEnglishCertificate.Enabled = false;
+            }
+
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
